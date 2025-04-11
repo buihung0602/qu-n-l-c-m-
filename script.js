@@ -2,7 +2,7 @@ const form = document.getElementById("goalForm");
 const goalList = document.getElementById("goalList");
 const message = document.getElementById("message");
 
-let goals = [];
+let goals = JSON.parse(localStorage.getItem("goals")) || [];
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -22,10 +22,15 @@ form.addEventListener("submit", function (e) {
   };
 
   goals.push(newGoal);
+  saveGoals();
   showMessage("Thêm mục tiêu thành công!");
   form.reset();
   renderGoals();
 });
+
+function saveGoals() {
+  localStorage.setItem("goals", JSON.stringify(goals));
+}
 
 function renderGoals(filter = "all") {
   goalList.innerHTML = "";
@@ -63,6 +68,7 @@ function showMessage(text) {
 function deleteGoal(id) {
   if (confirm("Bạn có chắc chắn muốn xoá mục tiêu này?")) {
     goals = goals.filter(goal => goal.id !== id);
+    saveGoals();
     showMessage("Xoá thành công!");
     renderGoals();
   }
@@ -72,6 +78,7 @@ function toggleStatus(id) {
   goals = goals.map(goal =>
     goal.id === id ? { ...goal, status: goal.status === "Đã đạt" ? "Chưa đạt" : "Đã đạt" } : goal
   );
+  saveGoals();
   renderGoals();
 }
 
@@ -83,6 +90,7 @@ function editGoal(id) {
   if (newContent && newPriority) {
     goal.content = newContent.trim();
     goal.priority = newPriority.trim();
+    saveGoals();
     showMessage("Sửa thành công!");
     renderGoals();
   }
@@ -91,3 +99,6 @@ function editGoal(id) {
 function filterGoals(type) {
   renderGoals(type);
 }
+
+// Hiển thị dữ liệu khi trang vừa tải
+renderGoals();

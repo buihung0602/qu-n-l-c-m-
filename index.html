@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Lý Ước Mơ / Mục Tiêu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Quản Lý Ước Mơ / Mục Tiêu</h1>
+    <form id="goalForm">
+      <input type="text" id="goalContent" placeholder="Nhập mục tiêu..." required />
+
+      <select id="priority">
+        <option value="">Chọn mức độ quan trọng</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="1">⭐</option>
+        <option value="Cao">Cao</option>
+        <option value="Vừa">Vừa</option>
+        <option value="Thấp">Thấp</option>
+      </select>
+
+      <button type="submit">Thêm Mục Tiêu</button>
+    </form>
+
+    <div class="filters">
+      <button onclick="filterGoals('all')">Tất cả</button>
+      <button onclick="filterGoals('done')">Đã đạt</button>
+      <button onclick="filterGoals('not_done')">Chưa đạt</button>
+    </div>
+
+    <div id="message"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nội dung</th>
+          <th>Mức độ quan trọng</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="goalList"></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
